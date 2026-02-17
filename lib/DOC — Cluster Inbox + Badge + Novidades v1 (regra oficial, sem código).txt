@@ -1,0 +1,251 @@
+Objetivo
+
+Mesmo com o Cluster pausado, o usuário deve perceber dicas importantes via badge numérico, abrir um Inbox e poder salvar dicas como referência.
+“Novidades & Oportunidades” existem, mas não podem virar spam.
+
+1) Estados do Cluster (comportamento final)
+1.1 Ativo (default)
+
+Pode sugerir em contexto (Right Panel + mini-modal)
+
+Pode abrir checklist e instruções
+
+Badge aparece somente para Crítico (opcional: Importante também)
+
+1.2 Pausado
+
+Não interrompe (sem popups/mini-modal automático)
+
+Mantém ícone sempre visível
+
+Badge numérico habilitado apenas para Crítico + Importante
+
+Usuário abre o Inbox manualmente
+
+1.3 Minimizado
+
+Ícone reduzido e discreto
+
+Badge segue as mesmas regras do estado atual (ativo/pausado)
+
+Regra imutável: pode pausar/minimizar, não pode excluir.
+
+2) Badge numérico (contador)
+2.1 Quando incrementa
+
+Somente quando existir item do tipo:
+
+Severidade = Crítico ou Importante
+
+Status = Aberto (não resolvido, não descartado)
+
+2.2 Quando NÃO incrementa
+
+Severidade = Info
+
+Itens de Novidades & Oportunidades
+
+Itens já marcados como “Resolvido”
+
+Itens descartados com “Não mostrar novamente”
+
+2.3 Exibição
+
+1–9 mostra número
+
+9+ mostra “9+”
+
+Ao abrir o Inbox, o badge zera apenas do que foi “lido” (opcional v1) ou do que foi resolvido (mais correto).
+
+Recomendação v1: badge = contagem de Abertos, não de “não lidos”.
+
+3) Cluster Inbox (painel)
+3.1 Acesso
+
+Clique no ícone do Cluster (com ou sem badge)
+
+Atalho (opcional): Ctrl+Shift+C
+
+3.2 Estrutura (Tabs)
+
+Importante (Crítico + Importante)
+
+Referências (itens salvos)
+
+Novidades & Oportunidades (anúncios, upgrades, releases)
+
+4) Tab “Importante” (triagem operacional)
+4.1 Card padrão do item
+
+Campos visíveis:
+
+Título curto (ex.: “GSC não conectado”)
+
+Severidade (Crítico/Importante)
+
+Contexto (tela afetada: Editor / Integrações / Jobs / Domínios)
+
+Tempo (ex.: “há 2h”)
+
+Ações:
+
+Abrir (deep-link para tela e seção)
+
+Checklist (passos curtos)
+
+Marcar como resolvido
+
+Salvar como referência
+
+Silenciar este alerta (não mostrar novamente para este projeto ou global)
+
+4.2 Regras de prioridade
+
+Ordem padrão:
+
+Crítico
+
+Importante
+Dentro disso:
+
+mais recente primeiro (ou “impacto maior” primeiro)
+
+5) Tab “Referências” (biblioteca do usuário)
+5.1 O que é
+
+Quando o usuário clica “Salvar como referência”, o item vira um “card reutilizável”:
+
+Título
+
+Tags (ex.: Integrações, Google Cloud, Editor, Publicação)
+
+Passo-a-passo
+
+Links internos (telas do sistema)
+
+(Opcional) links externos confiáveis (abre em nova guia)
+
+5.2 Regras
+
+Referências são pesquisáveis (“Como criar API no Google Cloud”)
+
+Referências podem ser:
+
+por projeto
+
+ou globais (conta)
+
+Recomendação v1: por projeto + opção “tornar global”.
+
+6) Tab “Novidades & Oportunidades” (sem virar spam)
+6.1 Tipos permitidos
+
+Novas features
+
+Mudanças importantes (breaking / migração)
+
+Dicas avançadas (“melhor prática”)
+
+Oportunidade de upgrade (ex.: mais créditos cloud)
+
+6.2 Guardrails anti-spam (obrigatórios)
+
+Não entram no badge
+
+Frequência:
+
+máx 1 item por semana (ou por release relevante)
+
+Sempre ter:
+
+Dispensar
+
+Não mostrar novidades (toggle global)
+
+Silenciar este tipo (ex.: “não quero ofertas”)
+
+6.3 Regras de ética do produto
+
+“Ofertas” nunca podem bloquear fluxo do editor
+
+“Ofertas” nunca podem aparecer como Crítico/Importante
+
+7) Severidades (tabela simples)
+7.1 Crítico (entra no badge)
+
+Engine offline / falha de conexão
+
+Job travado / erro recorrente
+
+Integração necessária falhou (GA4/GSC/GTM) quando o projeto exige
+
+Publicação falhou / domínio inválido
+
+7.2 Importante (entra no badge)
+
+LP sem requisitos mínimos (ex.: faltam refs/tabela) antes de publicar
+
+Projeto sem template padrão
+
+DNS pendente (quando impede publish)
+
+Baixo score/validações falhando (quando impede promote)
+
+7.3 Info (não entra no badge)
+
+Sugestões de melhoria
+
+Dicas de copy/design
+
+Recomendações opcionais
+
+8) Contrato de dados mínimo (conceitual)
+8.1 InboxItem
+
+id
+
+type: alert | guide | tip | news | offer
+
+severity: critical | important | info
+
+status: open | resolved | dismissed
+
+title
+
+summary
+
+steps[] (checklist curto)
+
+target (deep-link: tela, seção, ids)
+
+tags[]
+
+created_at
+
+project_scope: project | global
+
+8.2 ReferenceItem
+
+ref_id (pode ser o mesmo id migrado)
+
+title
+
+steps[]
+
+tags[]
+
+links[] (internos/externos)
+
+scope
+
+9) Regras finais (para não quebrar UX)
+
+Pausado = silêncio, mas badge para importante
+
+Badge = somente Crítico/Importante
+
+Novidades/ofertas = sem badge e com frequência baixa
+
+Referências = reutilizáveis e pesquisáveis
+
+Se você mandar “próximo passo”, eu fecho o catálogo de “eventos que geram alertas” por área do sistema (Editor / Integrações / Jobs / Domínios / Templates) para virar lista oficial do produto.
