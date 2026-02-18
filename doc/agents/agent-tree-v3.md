@@ -70,3 +70,14 @@ Notas de Guardrails (imutáveis)
 - Nenhum agente aplica mudanças globais destrutivas.
 - Ações em produção devem passar por: validação → diff → promote com auditoria.
 - Agentes de suporte não têm acesso a segredos; apenas referências e diagnósticos.
+
+
+### Por que isso resolve
+- O bloco ```text preserva espaçamento, “│”, “├─” e quebras de linha.
+- Mesmo no GitHub (renderizado) e no `raw`, vai ficar alinhado e legível.
+
+Se depois de colar ainda ficar estranho, quase sempre é porque o editor salvou com 
+**quebra de linha errada** ou removeu espaços — mas na sua versão atual o problema principal é que tudo foi salvo em uma linha só. 
+:contentReference[oaicite:1]{index=1}
+::contentReference[oaicite:2]{index=2}
+
